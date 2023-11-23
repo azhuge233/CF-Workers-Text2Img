@@ -11,4 +11,4 @@ Simple text to image script using Cloudflare Workers
     - Set `APIToken` as the Workers AI API token and `UserID` as the account ID.
 5. Copy-paste the content from `worker.js` into the newly created Workers instance.
 6. Send `GET` requests with the parameter `p` (as the prompt) to the Worker.
-    - There's also an `s` parameter that indicates the number of generation steps, maximum 20.
+    - There's also an `s` parameter that indicates the number of generation steps, default is 20 (maximum).
