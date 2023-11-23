@@ -16,7 +16,13 @@ export default {
       });
     }
 
-    if (steps == null || isNaN(steps)) steps = 20;
+    if (isNaN(steps) || steps > 20 || steps < 0) {
+      return new Response("Invalid step, step must be in [0, 20]", {
+        status: 200
+      });
+    }
+
+    if (steps == null) steps = 20;
 
     console.log(prompt, steps);
 
