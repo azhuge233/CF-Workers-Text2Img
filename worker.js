@@ -1,0 +1,49 @@
+export default {
+  async fetch(request, env, ctx) {
+    if(request.method != 'GET') {
+      return new Response("GET request only.", {
+        status: 200
+      })
+    }
+
+    let url = new URL(request.url);
+    let prompt = url.searchParams.get('p');
+    let steps = parseInt(url.searchParams.get('s'));
+
+    if (prompt == null || prompt == "") {
+      return new Response("No prompt provided.", {
+        status: 200
+      });
+    }
+
+    if (steps == null || isNaN(steps)) steps = 20;
+
+    console.log(prompt, steps);
+
+    const UserID = env.UserID;
+    const Token = env.APIToken;
+    const CFApiEndpoint = `https://api.cloudflare.com/client/v4/accounts/${UserID}/ai/run/@cf/stabilityai/stable-diffusion-xl-base-1.0`;
+
+    const body = {
+      prompt: prompt,
+      num_steps: steps
+    };
+
+    const init = {
+      body: JSON.stringify(body),
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${Token}`,
+        "content-type": "application/json;",
+      },
+    };
+
+    const response = await fetch(CFApiEndpoint, init);
+
+    return new Response(response.body, {
+      headers: {
+          "content-type": "image/png",
+      },
+    });
+  },
+};
