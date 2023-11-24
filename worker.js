@@ -8,7 +8,7 @@ export default {
 
     let url = new URL(request.url);
     let prompt = url.searchParams.get('p');
-    let steps = parseInt(url.searchParams.get('s'));
+    let steps = 20;
 
     if (prompt == null || prompt == "") {
       return new Response("No prompt provided.", {
@@ -16,13 +16,15 @@ export default {
       });
     }
 
-    if (isNaN(steps) || steps > 20 || steps < 0) {
-      return new Response("Invalid step, step must be in [0, 20]", {
-        status: 200
-      });
-    }
+    if (url.searchParams.get('s') != null) {
+      steps = parseInt(url.searchParams.get('s'));
 
-    if (steps == null) steps = 20;
+      if(isNaN(steps) || steps > 20 || steps < 0) {
+        return new Response("Invalid step, step must be in [0, 20]", {
+          status: 200
+        });
+      }
+    }
 
     console.log(prompt, steps);
 
