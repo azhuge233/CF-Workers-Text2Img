@@ -30,6 +30,7 @@ export default {
 
     const UserID = env.UserID;
     const Token = env.APIToken;
+    const CORS_DOMAIN = env.CORS_DOMAIN;
     const CFApiEndpoint = `https://api.cloudflare.com/client/v4/accounts/${UserID}/ai/run/@cf/stabilityai/stable-diffusion-xl-base-1.0`;
 
     const body = {
@@ -51,6 +52,7 @@ export default {
     return new Response(response.body, {
       headers: {
           "content-type": "image/png",
+          "Access-Control-Allow-Origin": CORS_DOMAIN
       },
     });
   },
