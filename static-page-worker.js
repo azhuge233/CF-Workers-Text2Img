@@ -5,6 +5,7 @@ export default {
     const html = `<!DOCTYPE html>
     <html class="dark">
     <head>
+      <title>Stable Diffusion on Cloudflare Workers</title>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <link rel="stylesheet" href="https://unpkg.com/papercss@1.9.2/dist/paper.min.css"/>
